@@ -1,0 +1,30 @@
+{
+    "name": "htho/lophper",
+    "description": "Low- PHP -er",
+    "autoload": {
+        "psr-4": {
+            "Lophper\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Lophper\\Spec\\": "spec/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "php": "^8.1"
+    },
+    "require-dev": {
+        "kahlan/kahlan": "^5.2",
+        "kahlan/extra-matcher": "^1.0.0",
+        "php-coveralls/php-coveralls": "^2.0",
+        "phpmd/phpmd": "^2.13",
+        "friendsofphp/php-cs-fixer": "^3.13"
+    },
+    "suggest": {
+        "ext-xdebug": "Xdebug extension to allow to get coverage report",
+        "ext-phpdbg": "PHPDBG extension to allow to get coverage report"
+    }
+    }
