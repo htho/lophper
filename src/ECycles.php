@@ -2,7 +2,10 @@
 
 namespace Lophper;
 
-enum Cycles: string
+/**
+ * @note StaticAccess is explicitely allowed in phpmd-ruleset.xml
+ */
+enum ECycles: string
 {
     case ONCE = "o";
     case ALWAYS = "a";
