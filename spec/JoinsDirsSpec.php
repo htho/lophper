@@ -21,7 +21,7 @@ describe("joinDir", function () {
         expect($dj->joined)->toBe("B");
     });
     it("sep infix", function () {
-        $dj = new DirJoiner(ECycles::ALWAYS->value, "B");
-        expect($dj->joined)->toBe(ECycles::ALWAYS->value . DIRECTORY_SEPARATOR . "B");
+        $dj = new DirJoiner(ECycles::DAILY->value, "B");
+        expect($dj->joined)->toBe(ECycles::DAILY->value . DIRECTORY_SEPARATOR . "B");
     });
 });

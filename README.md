@@ -26,7 +26,7 @@ The API increases the counter.
 On consectuive calls, the Browser sends the `If-Modified-Since` header.
 The API responses with `304 Not Modified` and may increase a revisit counter.
 
-There can be different log `events` (index page, about page, click on button) and `cycles` (once, always, daily, monthly).
+There can be different log `events` (index page, about page, click on button) and `cycles` (once, daily, monthly).
 
 ### Counter-Storage
 
@@ -35,7 +35,6 @@ There are many ways: Log-Files with time-stamps, Session-Storage, Databases.
 Lopher uses an approach, were statistics are available by looking at the file-system:
 Each log increases the size of a file by one byte.
 
-* `{event}/always/{YYYY}-{MM}/{day}.ctr`
 * `{event}/once/{YYYY}-{MM}/{day}.ctr`
 * `{event}/once-revisit/{YYYY}-{MM}/{day}.ctr`
 * `{event}/daily/{YYYY}-{MM}/{day}.ctr`

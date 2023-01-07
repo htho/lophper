@@ -23,7 +23,6 @@ class Logger
     {
         return match ($this->cycle) {
             ECycles::ONCE => $this->lastLog === 0,
-            ECycles::ALWAYS => true,
             ECycles::DAILY => $this->lastLog < strtotime("-1 day", $this->now),
             ECycles::MONTHLY => $this->lastLog < strtotime("-1 month", $this->now),
         };
@@ -43,7 +42,6 @@ class Logger
         $hourOfDay = intval(gmdate("G", $this->now));
         return match ($this->cycle) {
             ECycles::ONCE => $dayOfMonth,
-            ECycles::ALWAYS => $hourOfDay,
             ECycles::DAILY => $hourOfDay,
             ECycles::MONTHLY => $dayOfMonth,
         };
@@ -56,7 +54,6 @@ class Logger
 
         return match ($this->cycle) {
             ECycles::ONCE => $this->joinDir($yearMonth, "once"),
-            ECycles::ALWAYS => $this->joinDir($yearMonth, $dayOfMonth, "always"),
             ECycles::DAILY => $this->joinDir($yearMonth, $dayOfMonth, "daily"),
             ECycles::MONTHLY => $this->joinDir($yearMonth, "monthly"),
         };

@@ -29,7 +29,6 @@ describe("Request", function () {
     describe("forceValidCycle", function () {
         $request = new Request(["e" => "foo", "c" => "a"], []);
         it("returns valid Cycle for valid cycle", function () use ($request) {
-            expect($request->forceValidCycle("a"))->toBe(ECycles::ALWAYS);
             expect($request->forceValidCycle("o"))->toBe(ECycles::ONCE);
             expect($request->forceValidCycle("d"))->toBe(ECycles::DAILY);
             expect($request->forceValidCycle("m"))->toBe(ECycles::MONTHLY);

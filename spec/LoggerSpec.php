@@ -6,10 +6,6 @@ use Lophper\Logger;
 use Lophper\ECycles;
 
 describe("needsLog", function () {
-    it("returns true for ALWAYS", function () {
-        $logger = new Logger(ECycles::ALWAYS, 0, 0);
-        expect($logger->needsLog())->toBe(true);
-    });
     it("returns true for ONCE when lastlog is 0", function () {
         $logger = new Logger(ECycles::ONCE, 0, 0);
         expect($logger->needsLog())->toBe(true);
