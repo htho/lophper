@@ -3,11 +3,13 @@
 namespace Lophper;
 
 $now = \time();
-$logWriter = new LogWriter();
 $request = new Request($_GET, $_SERVER);
-$logger = new Logger($request, $logWriter, $now);
+
+$logWriter = new LogWriter();
+$loggerFactory = new LoggerFactory($logWriter);
+
 $sender = new HttpSender();
 
-$lophper = new Lophper($request, $logger, $sender, $now);
+$lophper = new Lophper($request, $loggerFactory, $sender, $now);
 
 $lophper->exec();

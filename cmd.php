@@ -33,11 +33,13 @@ class CmdLogWriter extends LogWriter
 }
 
 $now = \time();
+$request = new Request($get, $server, $now);
+
 $logWriter = new CmdLogWriter();
-$request = new Request($get, $server);
-$logger = new Logger($request, $logWriter, $now);
+$loggerFactory = new LoggerFactory($logWriter);
+
 $sender = new CmdSender();
 
-$lophper = new Lophper($request, $logger, $sender, $now);
+$lophper = new Lophper($request, $loggerFactory, $sender, $now);
 
 $lophper->exec();
