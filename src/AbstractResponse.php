@@ -2,7 +2,7 @@
 
 namespace Lophper;
 
-abstract class Response {
+abstract class AbstractResponse {
     public Sender $sender;
     public function __construct(Sender $sender) {
         $this->sender = $sender;

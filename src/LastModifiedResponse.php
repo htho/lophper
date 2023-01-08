@@ -2,7 +2,7 @@
 
 namespace Lophper;
 
-class LastModifiedResponse extends Response {
+class LastModifiedResponse extends AbstractResponse {
     use FormatsHttpDate;
     
     public readonly string $header;

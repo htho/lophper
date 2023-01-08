@@ -10,6 +10,7 @@ class Request
     public readonly ECycles $cycle;
     public readonly int $lastLog;
     public readonly bool $isFresh;
+    public readonly int $received;
 
     public function __construct(array $get, array $server, int $now)
     {
@@ -17,6 +18,7 @@ class Request
         $this->cycle = $this->forceValidCycle($get["c"] ?? throw new Exception("Missing get param c", 1));
         $this->lastLog = $this->forceValidLastLog($server["HTTP_IF_MODIFIED_SINCE"] ?? null);
         $this->isFresh = $this->calcIsFresh($now);
+        $this->received = $now;
     }
 
     public function forceValidEvent(string $event): string

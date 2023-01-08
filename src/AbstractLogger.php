@@ -15,11 +15,10 @@ abstract class AbstractLogger
         $this->now = $now;
     }
 
-    public function log(string $event): void
+    public function log(string $filename): void
     {
         $data = $this->createContent();
         $dir = $this->logDir();
-        $filename = $event;
         $this->logWriter->write($data, $dir, $filename);
     }
 

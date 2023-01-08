@@ -2,9 +2,9 @@
 
 namespace Lophper\Spec;
 
-use Lophper\Response;
+use Lophper\AbstractResponse;
 
-class MockResponse extends Response {
+class MockResponse extends AbstractResponse {
     public function __construct(Type $var = null) {
         $this->var = $var;
     }
