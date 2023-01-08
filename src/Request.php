@@ -8,7 +8,7 @@ class Request
 {
     public readonly string $event;
     public readonly ECycles $cycle;
-    public readonly int $lastLog;
+    public readonly int|null $lastLog;
     public readonly bool $isFresh;
     public readonly int $received;
 
@@ -21,7 +21,7 @@ class Request
         $this->received = $now;
     }
 
-    public function forceValidEvent(string $event): string
+    private function forceValidEvent(string $event): string
     {
         $replaced = preg_replace("/[^a-z0-9]+/", "-", $event);
         $isValid = $event === $replaced;
@@ -33,25 +33,29 @@ class Request
         return $event;
     }
 
-    public function forceValidCycle(string $cycle): ECycles
+    private function forceValidCycle(string $cycle): ECycles
     {
         return ECycles::tryFrom($cycle) ?? throw new Exception("Invalid cycle characters!", 1);
     }
 
-    public function forceValidLastLog(string|null $httpIfModifiedSince): int
+    private function forceValidLastLog(string|null $httpIfModifiedSince): int|null
     {
-        if ($httpIfModifiedSince == null) {
-            return 0;
+        if ($httpIfModifiedSince === null) {
+            return null;
         }
         return strtotime($httpIfModifiedSince);
     }
 
     private function calcIsFresh(int $now)
     {
+        if ($this->lastLog === null) {
+            return false;
+        }
+
         return match ($this->cycle) {
-            ECycles::ONCE => $this->lastLog === 0,
-            ECycles::DAILY => $this->lastLog < strtotime("-1 day", $now),
-            ECycles::MONTHLY => $this->lastLog < strtotime("-1 month", $now),
+            ECycles::ONCE => true,
+            ECycles::DAILY => $this->lastLog > strtotime("-1 day", $now),
+            ECycles::MONTHLY => $this->lastLog > strtotime("-1 month", $now),
         };
     }
 }
