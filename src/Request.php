@@ -9,7 +9,7 @@ class Request
     public readonly string $event;
     public readonly ECycles $cycle;
     public readonly int|null $lastLog;
-    public readonly bool $isFresh;
+    public readonly bool $needsLog;
     public readonly int $received;
 
     public function __construct(array $get, array $server, int $now)
@@ -17,7 +17,7 @@ class Request
         $this->event = $this->forceValidEvent($get["e"] ?? throw new Exception("Missing get param e", 1));
         $this->cycle = $this->forceValidCycle($get["c"] ?? throw new Exception("Missing get param c", 1));
         $this->lastLog = $this->forceValidLastLog($server["HTTP_IF_MODIFIED_SINCE"] ?? null);
-        $this->isFresh = $this->calcIsFresh($now);
+        $this->needsLog = $this->calcNeedsLog($now);
         $this->received = $now;
     }
 
@@ -46,16 +46,16 @@ class Request
         return strtotime($httpIfModifiedSince);
     }
 
-    private function calcIsFresh(int $now)
+    private function calcNeedsLog(int $now)
     {
         if ($this->lastLog === null) {
-            return false;
+            return true;
         }
 
         return match ($this->cycle) {
-            ECycles::ONCE => true,
-            ECycles::DAILY => $this->lastLog > strtotime("-1 day", $now),
-            ECycles::MONTHLY => $this->lastLog > strtotime("-1 month", $now),
+            ECycles::ONCE => false,
+            ECycles::DAILY => $this->lastLog < strtotime("-1 day", $now),
+            ECycles::MONTHLY => $this->lastLog < strtotime("-1 month", $now),
         };
     }
 }

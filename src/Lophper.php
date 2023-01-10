@@ -14,15 +14,14 @@ class Lophper
         $this->request = $request;
         $this->logger = $loggerFactory->getLogger($request->cycle);
         $event = $this->request->event;
-        
-        if($this->request->isFresh) {
+
+        if ($this->request->needsLog) {
             $this->event = "$event-first";
             $this->response = $responseFactory->getLastModified();
         } else {
             $this->event = "$event-more";
             $this->response = $responseFactory->getNotModified();
         }
-
     }
     public function exec()
     {
