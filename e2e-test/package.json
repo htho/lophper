@@ -1,0 +1,16 @@
+{
+  "name": "e2e-test",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "scripts": {
+    "test": "testcafe",
+    "serve": "php -S 127.0.0.1:8000 -t ../src"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "testcafe": "^3.1.0",
+    "testcafe-browser-provider-dummy": "file:../../testcafe-browser-provider-dummy"
+  }
+}
