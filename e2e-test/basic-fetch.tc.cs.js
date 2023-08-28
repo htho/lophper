@@ -1,4 +1,4 @@
-setTimeout(() => {
+window.onload = () => {
     const send = document.createElement("button");
     send.id = "send";
     const url = document.createElement("input");
@@ -11,7 +11,7 @@ setTimeout(() => {
         
         throw new Error("Unexpected HTTP Response!");
     }
-    
+
     document.body.insertAdjacentElement("afterbegin", send);
     document.body.insertAdjacentElement("afterbegin", url);
-});
+};
