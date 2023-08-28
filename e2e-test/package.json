@@ -13,7 +13,6 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "testcafe": "^3.2.0",
-    "testcafe-browser-provider-dummy": "file:../../testcafe-browser-provider-dummy"
+    "testcafe": "^3.2.0"
   }
 }
