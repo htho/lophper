@@ -35,19 +35,23 @@ There are many ways: Log-Files with time-stamps, Session-Storage, Databases.
 Lopher uses an approach, were statistics are available by looking at the file-system:
 Each log increases the size of a file by one byte.
 
-* `{event}/once/{YYYY}-{MM}/{day}.ctr`
-* `{event}/once-revisit/{YYYY}-{MM}/{day}.ctr`
-* `{event}/daily/{YYYY}-{MM}/{day}.ctr`
-* `{event}/daily-revisit/{YYYY}-{MM}/{day}.ctr`
-* `{event}/weekly/{YYYY}-{MM}/{day}.ctr`
-* `{event}/weekly-revisit/{YYYY}-{MM}/{day}.ctr`
-* `{event}/monthly/{YYYY}-{MM}/{day}.ctr`
-* `{event}/monthly-revisit/{YYYY}-{MM}/{day}.ctr`
+* `{event}/once/{YYYY}-{MM}/{day}`
+* `{event}/once-revisit/{YYYY}-{MM}/{day}`
+* `{event}/daily/{YYYY}-{MM}/{day}`
+* `{event}/daily-revisit/{YYYY}-{MM}/{day}`
+* `{event}/monthly/{YYYY}-{MM}/{day}`
+* `{event}/monthly-revisit/{YYYY}-{MM}/{day}`
 
 By looking at the files size it is for example possible to tell how many first visitors were there at this day.
 
-It is even possible to find out when in a day the visit was made.
-There are 1440 minutes in a day.
-From minute 0 to 6 of the day a 0 is stored.
-From minute 6 to 12 of the day a 1 is stored.
-From minute 1434 to 1440 a 239 is stored.
+There are 3 types of cycles:
+
+1. once
+2. daily
+3. monthly
+
+The content of the files is not just a dummy byte, but a specific value.
+
+1. once: day of month
+2. daily: hour of day
+3. monthly: day of month
