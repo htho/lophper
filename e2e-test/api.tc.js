@@ -1,7 +1,7 @@
 // @ts-check
 import { rawReq, req, responseHeaders } from "./helpers";
 
-fixture("lophper");
+fixture("api");
 
 test("first call with {event: foo cycle: once}", async (t) => {
     const response = await t.request(req("foo", "once"));

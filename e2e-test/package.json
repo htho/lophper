@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "test": "testcafe",
-    "serve": "php -S 127.0.0.1:8000 -t ../src"
+    "serve": "php -S 127.0.0.1:8000 -t ../src",
+    "clean": "if exist ../src/log (del /S /Q  ..\\src\\log)"
   },
   "author": "",
   "license": "MIT",

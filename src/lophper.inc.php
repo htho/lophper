@@ -1,17 +1,19 @@
 <?php
 
-use \Exception as Exception;
+use Exception as Exception;
 
 function httpDateFormat(int $time): string
 {
     return gmdate("D, d M Y H:i:s ", $time) . "GMT";
 }
 
-function createLastModifiedHeader($now) {
+function createLastModifiedHeader($now)
+{
     $lastModifiedNow = httpDateFormat($now);
     return "Last-Modified: $lastModifiedNow";
 }
-function createNotModifiedHeader() {
+function createNotModifiedHeader()
+{
     return "HTTP/1.1 304 Not Modified";
 }
 
@@ -40,15 +42,24 @@ function getCycle(array $get): ECycles
     return ECycles::tryFrom($cycle) ?? throw new Exception("Invalid cycle characters!", 1);
 
 }
-function getLastLog(array $server): string|null {
+function getLastLog(array $server): int|null
+{
     $httpIfModifiedSince = $server["HTTP_IF_MODIFIED_SINCE"] ?? null;
-    
+
     if ($httpIfModifiedSince === null) {
         return null;
     }
-    return strtotime($httpIfModifiedSince);
+
+    $lastLog = strtotime($httpIfModifiedSince);
+
+    if($lastLog === false) {
+        throw new Exception("Could not parse HTTP_IF_MODIFIED_SINCE header!", 1);
+    }
+
+    return $lastLog;
 }
-function getNeedsLog(string|null $lastLog, ECycles $cycle, int $now): bool {
+function needsFirstLog(int|null $lastLog, ECycles $cycle, int $now): bool
+{
     if ($lastLog === null) {
         return true;
     }
@@ -58,7 +69,7 @@ function getNeedsLog(string|null $lastLog, ECycles $cycle, int $now): bool {
         ECycles::DAILY => $lastLog < strtotime("-1 day", $now),
         ECycles::MONTHLY => $lastLog < strtotime("-1 month", $now),
     };
-}  
+}
 
 
 function joinDir(string ...$segments): string

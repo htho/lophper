@@ -1,5 +1,5 @@
 {
-    "browsers": ["chrome:headless"],
-    "src": ["api.tc.js"],
-    "_appCommand": "npm run serve"
+    "browsers": ["chrome:headless", "firefox:headless"],
+    "src": ["api.tc.js", "basic-fetch.tc.js"],
+    "appCommand": "npm run clean && npm run serve",
 }

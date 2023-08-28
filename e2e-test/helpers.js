@@ -35,6 +35,21 @@ export function req(event, cycle, headers={}) {
     }, headers);
 }
 /**
+ * @param {string} event 
+ * @param {"once" | "daily" | "monthly" } cycle 
+ * @returns {RequestUrlOpts}
+ */
+export function stats(event, cycle) {
+    return {
+        method: "get",
+        url: `${baseUrl}/stats.php`,
+        params: {
+            e: event,
+            c: cycle[0],
+        },
+    };
+}
+/**
  * @param {Record<string, string>} params 
  * @param {LophperRequestHeaders} headers 
  * @returns {RequestUrlOpts}
