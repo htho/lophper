@@ -1,17 +1,23 @@
 <?php
 
-namespace Lophper;
+require_once("./lophper.inc.php");
 
 $now = \time();
 
-$request = new Request($_GET, $_SERVER);
+if(!$_GET["e"] && !$_GET["c"]) {
+    die();
+}
 
-$sender = new HttpSender();
-$responseFactory = new ResponseFactory($sender, $now);
+$event = getEvent($_GET);
+$cycle = getCycle($_GET);
+$lastLog = getLastLog($_SERVER);
 
-$logWriter = new LogWriter();
-$loggerFactory = new LoggerFactory($logWriter, $now);
+$needsFirstLog = needsFirstLog($lastLog, $cycle, $now);
+writeLog(
+    getLogContent($now, $cycle),
+    getLogDir($event, $now, $cycle),
+    $needsFirstLog ? "$event-first" : "$event-more"
+);
 
-$lophper = new Lophper($request, $responseFactory, $loggerFactory);
-
-$lophper->exec();
+$responseHeader = $needsFirstLog ? createLastModifiedHeader($now) : createNotModifiedHeader();
+header($responseHeader);
