@@ -4,16 +4,20 @@ require_once("./lophper.inc.php");
 
 $now = \time();
 
+if(!$_GET["e"] && !$_GET["c"]) {
+    die();
+}
+
 $event = getEvent($_GET);
 $cycle = getCycle($_GET);
 $lastLog = getLastLog($_SERVER);
 
-$needsLog = getNeedsLog($lastLog, $cycle, $now);
+$needsFirstLog = needsFirstLog($lastLog, $cycle, $now);
 writeLog(
     getLogContent($now, $cycle),
     getLogDir($event, $now, $cycle),
-    $needsLog ? "$event-first" : "$event-more"
+    $needsFirstLog ? "$event-first" : "$event-more"
 );
 
-$responseHeader = $needsLog ? createLastModifiedHeader($now) : createNotModifiedHeader();
+$responseHeader = $needsFirstLog ? createLastModifiedHeader($now) : createNotModifiedHeader();
 header($responseHeader);
