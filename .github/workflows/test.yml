@@ -42,7 +42,7 @@ jobs:
       working-directory: ./e2e-test/
 
     - name: Run e2e Tests
-      run: npm run test
+      run: npm run ci-test
       working-directory: ./e2e-test/
 
 
