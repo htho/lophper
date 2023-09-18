@@ -1,0 +1,3 @@
+# remove tests from language stats - this is a php project
+# it just happens to be tested with js
+e2e-test/** linguist-vendored
